@@ -1,7 +1,7 @@
 PHP retask
 ==========
 
-This is a PHP port of the [retask library](https://github.com/kushaldas/retask) written by Kushal Das.
+This is a PHP port of the [retask python module](https://github.com/kushaldas/retask) written by Kushal Das.
 
 retask is a lightweight library used to create distributed task queues using Redis.
 
