@@ -43,14 +43,29 @@ use Smncd\Retask\Redis;
  */
 class Queue
 {
+    /**
+     * Name of the retask Redis queue.
+     */
     public string $name;
 
+    /**
+     * Prepended to queue name.
+     */
     protected string $queuePrefix = 'retaskqueue';
 
+    /**
+     * The full queue name.
+     */
     protected string $queueName;
 
+    /**
+     * Redis instance.
+     */
     protected RedisInterface $redis;
 
+    /**
+     * Default Redis config.
+     */
     protected array $config = [
         'host' => 'localhost',
         'port' => 6379,
@@ -58,6 +73,9 @@ class Queue
         'password' => null,
     ];
 
+    /**
+     * Status of connection to Redis.
+     */
     protected bool $connected = false;
 
     public function __construct(string $name, ?array $config = null)
@@ -71,7 +89,10 @@ class Queue
         }
     }
 
-    public function names(): array
+    /**
+     * Returns a list of queues available, `null` if no such queues found.
+     */
+    public function names(): ?array
     {
         $data = null;
 
@@ -93,7 +114,10 @@ class Queue
         return $result;
     }
 
-    public function length(): int
+    /**
+     * Gives the length of the queue. Returns `null` if the queue is not connected.
+     */
+    public function length(): ?int
     {
         $this->checkConnection();
 
@@ -104,6 +128,11 @@ class Queue
         }
     }
 
+    /**
+     * Attempts to connect with the Redis server.
+     *
+     * @param string|null $redisClient The default Redis client is \Smncd\Retask\Redis, which is a wrapper on top of Predis.
+     */
     public function connect(
         string $redisClient = Redis::class
     ): bool
@@ -128,11 +157,18 @@ class Queue
         }
     }
 
+    /**
+     * Returns a boolean representing the connection status to the Redis server.
+     */
     public function isConnected(): bool
     {
         return $this->connected;
     }
 
+    /**
+     * Returns a Task from the queue. If the request timeouts, it returns false.
+     * This is a blocking call, you can specity waitTime argument for timeout.
+     */
     public function wait(?int $waitTime = 0): Task | bool
     {
         $this->checkConnection();
@@ -149,6 +185,9 @@ class Queue
         }
     }
 
+    /**
+     * Returns a `Task` instance from the queue, or `null`, should the queue be empty.
+     */
     public function dequeue(): ?Task
     {
         $this->checkConnection();
@@ -178,6 +217,9 @@ class Queue
 
     }
 
+    /**
+     * Enqueues a `Task` instance to the queue and returns a `Job` instance.
+     */
     public function enqueue(Task $task): ?Job
     {
         $this->checkConnection();
@@ -197,6 +239,9 @@ class Queue
         }
     }
 
+    /**
+     *  Sends the result back to the producer.
+     */
     public function send(Task $task, array|object|string $result, int $expire = 60): void
     {
         $this->checkConnection();
@@ -212,6 +257,9 @@ class Queue
         );
     }
 
+    /**
+     * Make sure that there is a connection to the Redis server.
+     */
     private function checkConnection(): void
     {
         if (!$this->connected) {
