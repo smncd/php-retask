@@ -45,6 +45,8 @@ class Queue
 {
     public string $name;
 
+    protected string $queuePrefix = 'retaskqueue';
+
     protected string $queueName;
 
     protected RedisInterface $redis;
@@ -62,7 +64,7 @@ class Queue
     {
         $this->name = $name;
 
-        $this->queueName = "retaskqueue-{$name}";
+        $this->queueName = "{$this->queuePrefix}-{$name}";
 
         if ($config) {
             $this->config = array_merge($this->config, $config);
@@ -78,7 +80,7 @@ class Queue
         }
 
         try {
-            $data = $this->redis->keys('retaskqueue-*');
+            $data = $this->redis->keys("{$this->queuePrefix}-*");
         } catch (RedisConnectionException $error) {
             throw new ConnectionException($error->getMessage());
         }
