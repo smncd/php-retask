@@ -11,6 +11,6 @@ source .venv/bin/activate;
 
 python -m pip install -r requirements.txt;
 
-echo 'Running worker...';;
+echo 'Running worker...';
 
 python worker.py;
