@@ -34,6 +34,8 @@ use Smncd\Retask\Redis;
 /**
  * Queue class.
  *
+ * @todo Add find() method.
+ *
  * @package retask
  * @author Simon Lagerlöf <contact@smn.codes>
  * @license MIT
@@ -203,7 +205,20 @@ class Queue
         }
     }
 
-    // public function send()
+    public function send(Task $task, array|object|string $result, int $expire = 60): void
+    {
+        if (!$this->connected) {
+            throw new ConnectionException('Queue is not connected');
+        }
 
-    // public function find()
+        $this->redis->lpush(
+            key: $task->urn,
+            values: (array) json_encode($result),
+        );
+
+        $this->redis->expire(
+            key: $task->urn,
+            seconds: $expire,
+        );
+    }
 }
