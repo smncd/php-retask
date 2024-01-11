@@ -75,9 +75,7 @@ class Queue
     {
         $data = null;
 
-        if (!$this->connected) {
-            throw new ConnectionException('Queue is not connected');
-        }
+        $this->checkConnection();
 
         try {
             $data = $this->redis->keys("{$this->queuePrefix}-*");
@@ -97,9 +95,7 @@ class Queue
 
     public function length(): int
     {
-        if (!$this->connected) {
-            throw new ConnectionException('Queue is not connected');
-        }
+        $this->checkConnection();
 
         try {
             return $this->redis->llen($this->queueName);
@@ -139,9 +135,7 @@ class Queue
 
     public function wait(?int $waitTime = 0): Task | bool
     {
-        if (!$this->connected) {
-            throw new ConnectionException('Queue is not connected');
-        }
+        $this->checkConnection();
 
         $data = $this->redis->brpop(
             keys: $this->queueName,
@@ -157,9 +151,7 @@ class Queue
 
     public function dequeue(): ?Task
     {
-        if (!$this->connected) {
-            throw new ConnectionException('Queue is not connected');
-        }
+        $this->checkConnection();
 
         if ($this->redis->llen($this->queueName) === 0) {
             return null;
@@ -188,9 +180,7 @@ class Queue
 
     public function enqueue(Task $task): ?Job
     {
-        if (!$this->connected) {
-            throw new ConnectionException('Queue is not connected');
-        }
+        $this->checkConnection();
 
         try {
             $job = new Job($this->redis);
@@ -209,9 +199,7 @@ class Queue
 
     public function send(Task $task, array|object|string $result, int $expire = 60): void
     {
-        if (!$this->connected) {
-            throw new ConnectionException('Queue is not connected');
-        }
+        $this->checkConnection();
 
         $this->redis->lpush(
             key: $task->urn,
@@ -222,5 +210,12 @@ class Queue
             key: $task->urn,
             seconds: $expire,
         );
+    }
+
+    private function checkConnection(): void
+    {
+        if (!$this->connected) {
+            throw new ConnectionException('Queue is not connected');
+        }
     }
 }
