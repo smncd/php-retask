@@ -7,7 +7,10 @@ retask is a lightweight library used to create distributed task queues using Red
 
 It is basically a wrapper on top of Redis's existing functionality, and meant to be compatible with the original retask Python module.
 
-⚠️ At the moment this repo is a proof of concept and will probably change a fair bit, so use at your own risk, and have fun!
+⚠️ Here be dragons ⚠️
+----------------------
+
+At the moment this repo is a proof of concept and will probably change a fair bit, so use at your own risk, and have fun!
 
 Installation
 ------------
