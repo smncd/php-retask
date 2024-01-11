@@ -47,12 +47,12 @@ $queue = new Queue('example');
 
 $queue->connect();
 
-$task1 = new Task([
+$task = new Task([
     'user' => 'John Doe',
     'task' => 'High-five a sea otter.',
 ]);
 
-$queue->enqueue($task1);
+$queue->enqueue($task);
 ```
 
 ```php
