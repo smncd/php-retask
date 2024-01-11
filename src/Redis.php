@@ -78,4 +78,9 @@ class Redis implements RedisInterface
     {
         return $this->redis->del($keyOrKeys, ...$keys);
     }
+
+    public function expire(string $key, int $seconds, string|null $expireOption = ''): int
+    {
+        return $this->redis->expire($key, $seconds, $expireOption);
+    }
 }

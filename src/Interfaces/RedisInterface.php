@@ -50,4 +50,5 @@ interface RedisInterface
 
     public function delete(array|string $keyOrKeys, string|null ...$keys): int;
 
+    public function expire(string $key, int $seconds, string|null $expireOption = ''): int;
 }
