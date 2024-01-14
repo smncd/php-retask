@@ -25,8 +25,8 @@ declare(strict_types=1);
 namespace Smncd\Retask;
 
 use Exception;
-use Predis\Connection\ConnectionException as RedisConnectionException;
 use Smncd\Retask\Exceptions\ConnectionException;
+use Smncd\Retask\Exceptions\RedisConnectionException;
 use Smncd\Retask\Exceptions\RetaskException;
 use Smncd\Retask\Interfaces\RedisInterface;
 use Smncd\Retask\Redis;
