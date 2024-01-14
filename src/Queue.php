@@ -33,6 +33,7 @@ use Smncd\Retask\Redis;
 
 use function array_merge;
 use function class_exists;
+use function get_object_vars;
 use function is_array;
 use function json_decode;
 use function json_encode;
