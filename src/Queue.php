@@ -133,7 +133,7 @@ class Queue
      *
      * @param string|null $redisClient The default Redis client is \Smncd\Retask\Redis, which is a wrapper on top of Predis.
      */
-    public function connect(string $redisClient = Redis::class): bool
+    public function connect(?string $redisClient = Redis::class): bool
     {
         if (!class_exists($redisClient)) {
             throw new RetaskException("Class '{$redisClient}' doesn't exist.");
