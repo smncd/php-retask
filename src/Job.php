@@ -27,6 +27,8 @@ namespace Smncd\Retask;
 use Ramsey\Uuid\Uuid;
 use Smncd\Retask\Interfaces\RedisInterface;
 
+use function json_decode;
+
 /**
  * Job class.
  *

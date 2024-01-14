@@ -31,6 +31,14 @@ use Smncd\Retask\Exceptions\RetaskException;
 use Smncd\Retask\Interfaces\RedisInterface;
 use Smncd\Retask\Redis;
 
+use function array_merge;
+use function class_exists;
+use function is_array;
+use function json_decode;
+use function json_encode;
+use function mb_convert_encoding;
+use function substr;
+
 /**
  * Queue class.
  *

@@ -24,6 +24,12 @@ declare(strict_types=1);
 
 namespace Smncd\Retask;
 
+use function is_string;
+use function json_decode;
+use function json_encode;
+use function sprintf;
+use function get_class;
+
 /**
  * Task class.
  *
