@@ -84,7 +84,7 @@ interface RedisInterface
      *
      * @see https://redis.io/commands/del/
      */
-    public function delete(array|string $keyOrKeys, string|null ...$keys): int;
+    public function del(array|string $keyOrKeys, string|null ...$keys): int;
 
     /**
      * Set a timeout on key. After the timeout has expired,

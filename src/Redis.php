@@ -74,7 +74,7 @@ class Redis implements RedisInterface
         return $this->redis->brpop($keys, $timeout);
     }
 
-    public function delete(array|string $keyOrKeys, string|null ...$keys): int
+    public function del(array|string $keyOrKeys, string|null ...$keys): int
     {
         return $this->redis->del($keyOrKeys, ...$keys);
     }

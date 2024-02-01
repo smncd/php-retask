@@ -58,7 +58,7 @@ class Job
         $data = $this->redis->rpop($this->urn);
 
         if ($data) {
-            $this->redis->delete($this->urn);
+            $this->redis->del($this->urn);
 
             $data = json_decode($data);
 
@@ -80,7 +80,7 @@ class Job
         );
 
         if ($data) {
-            $this->redis->delete($this->urn);
+            $this->redis->del($this->urn);
 
             $data = json_decode($data[1]);
 
